@@ -1,0 +1,23 @@
+{
+  "name": "demos-parcel",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "source": "src/index.html",
+  "browserslist": "last 1 versions",
+  "scripts": {
+    "start": "rimraf dist && parcel",
+    "build": "rimraf dist && parcel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.10.0",
+    "parcel": "^2.10.0",
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  }
+}
