@@ -20,8 +20,8 @@ const a = { name: "Maria", surname: "Ibañez", country: "SPA" };
 const b = { name: "Luisa", age: 31, married: true };
 
 
-function merge(userA: object, userB: object) {
-    const finalUser = {...userA, ...userB};
+function merge(source: object, target: object) {
+    const finalUser = {...target, ...source};
     return finalUser;
 };
 
