@@ -8,11 +8,10 @@ import { CardActionArea } from "@mui/material";
 interface CardProps {
     title: string;
     picUrl: string;
+    id: string;
 }
 
 export const ItemCard: React.FC<CardProps> = ({ title, picUrl }) => {
-    console.log(title, picUrl);
-
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>

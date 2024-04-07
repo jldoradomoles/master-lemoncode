@@ -1,8 +1,11 @@
 import React from "react";
 import { CatsListContainer } from "../pods/cats-list";
+import { AppLayout } from "../layouts/app.layouts";
 
 export const CatsListScene: React.FC = () => {
-    console.log("hola!");
-
-    return <CatsListContainer />;
+    return (
+        <AppLayout>
+            <CatsListContainer />
+        </AppLayout>
+    );
 };
