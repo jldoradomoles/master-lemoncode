@@ -6,12 +6,10 @@ interface TrashButtonProps {
     onClick: () => void;
 }
 
-const TrashButton: React.FC<TrashButtonProps> = ({ onClick }) => {
+export const TrashButton: React.FC<TrashButtonProps> = ({ onClick }) => {
     return (
         <Button onClick={onClick} variant="outlined" startIcon={<DeleteIcon />}>
             Delete
         </Button>
     );
 };
-
-export default TrashButton;

@@ -1,18 +1,18 @@
-import React, { Fragment } from "react";
-import { catEntity } from "../cart/cats-list.vm";
-import { ItemCard } from "../../components/itemCard.component";
+import React from "react";
+import { CartElementComponent } from "../../components/cartElement.component";
+import { catEntity } from "./cats-list.vm";
 
-interface Props {
+interface CartProps {
     cats: catEntity[];
 }
 
-export const CatsListComponent: React.FC<Props> = (props) => {
+export const CartComponent: React.FC<CartProps> = (props) => {
     const { cats } = props;
     return (
         <>
             {cats.map((cat) => (
                 <div className="cat-item">
-                    <ItemCard
+                    <CartElementComponent
                         key={cat.id}
                         title={cat.title}
                         picUrl={cat.picUrl}

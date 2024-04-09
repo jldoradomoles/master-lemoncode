@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import { CheckBox } from "../common/components/checkbox.componet";
 
 interface CardProps {
     title: string;
@@ -26,6 +27,11 @@ export const ItemCard: React.FC<CardProps> = ({ title, picUrl }) => {
                         {title}
                     </Typography>
                 </CardContent>
+                <CheckBox
+                    onClick={function (): void {
+                        throw new Error("Function not implemented.");
+                    }}
+                />
             </CardActionArea>
         </Card>
     );

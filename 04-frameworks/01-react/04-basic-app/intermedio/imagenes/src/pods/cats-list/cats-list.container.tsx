@@ -1,5 +1,5 @@
 import React from "react";
-import { catEntity } from "./cats-list.vm";
+import { catEntity } from "../cart/cats-list.vm";
 import { CatsListComponent } from "./cats-list.component"; // Import the missing component
 import { getMockData } from "../../api";
 import "../../assets/gato1.jpg";
