@@ -7,9 +7,5 @@ interface TrashButtonProps {
 }
 
 export const TrashButton: React.FC<TrashButtonProps> = ({ onClick }) => {
-    return (
-        <Button onClick={onClick} variant="outlined" startIcon={<DeleteIcon />}>
-            Delete
-        </Button>
-    );
+    return <Button onClick={onClick} startIcon={<DeleteIcon />}></Button>;
 };

@@ -4,15 +4,20 @@ import { ItemCard } from "../../components/itemCard.component";
 
 interface Props {
     cats: catEntity[];
+    onClick: (id: string) => void;
 }
 
 export const CatsListComponent: React.FC<Props> = (props) => {
-    const { cats } = props;
+    const { cats, onClick } = props;
+    const handleClick = (id: string) => {
+        onClick(id);
+    };
     return (
         <>
             {cats.map((cat) => (
-                <div className="cat-item">
+                <div key={cat.id} className="cat-item">
                     <ItemCard
+                        onClick={(id: string) => handleClick(id)}
                         key={cat.id}
                         title={cat.title}
                         picUrl={cat.picUrl}

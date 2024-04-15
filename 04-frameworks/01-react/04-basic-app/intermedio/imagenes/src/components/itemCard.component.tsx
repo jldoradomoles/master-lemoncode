@@ -10,9 +10,18 @@ interface CardProps {
     title: string;
     picUrl: string;
     id: string;
+    onClick: (id: string) => void;
 }
 
-export const ItemCard: React.FC<CardProps> = ({ title, picUrl }) => {
+export const ItemCard: React.FC<CardProps> = ({
+    title,
+    picUrl,
+    id,
+    onClick,
+}) => {
+    const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onClick(id);
+    };
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
@@ -28,9 +37,10 @@ export const ItemCard: React.FC<CardProps> = ({ title, picUrl }) => {
                     </Typography>
                 </CardContent>
                 <CheckBox
-                    onClick={function (): void {
-                        throw new Error("Function not implemented.");
-                    }}
+                    id={id}
+                    onClick={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        handleClick(event)
+                    }
                 />
             </CardActionArea>
         </Card>

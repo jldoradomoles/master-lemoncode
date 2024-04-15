@@ -3,29 +3,29 @@ import { PictureInfo } from "./api.model";
 export function getMockData(): PictureInfo[] {
     return [
         {
-            id: "1458672",
+            id: "1",
             picUrl: "https://png.pngtree.com/element_our/png/20181009/thai-cat-cream-tabby-sitting-png_131622.jpg",
-            title: "Picture 1",
+            title: "gato 1",
         },
         {
-            id: "2458656",
+            id: "2",
             picUrl: "https://e7.pngegg.com/pngimages/273/154/png-clipart-cats-cats-thumbnail.png",
-            title: "Picture 2",
+            title: "gato 2",
         },
         {
-            id: "35864586",
+            id: "3",
             picUrl: "https://png.pngtree.com/element_our/png/20181009/thai-cat-cream-tabby-sitting-png_131622.jpg",
-            title: "Picture 3",
+            title: "gato 3",
         },
         {
-            id: "4876778",
+            id: "4",
             picUrl: "https://e7.pngegg.com/pngimages/273/154/png-clipart-cats-cats-thumbnail.png",
-            title: "Picture 4",
+            title: "gato 4",
         },
         {
-            id: "567867896",
+            id: "5",
             picUrl: "https://png.pngtree.com/element_our/png/20181009/thai-cat-cream-tabby-sitting-png_131622.jpg",
-            title: "Picture 5",
+            title: "gato 5",
         },
     ];
 }

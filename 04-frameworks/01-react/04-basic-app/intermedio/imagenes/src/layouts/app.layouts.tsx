@@ -31,10 +31,10 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
                             component="div"
                             sx={{ flexGrow: 1 }}
                         >
-                            My App
+                            Cats shop
                         </Typography>
                         <Typography variant="h6" component="div">
-                            user: jose
+                            jose
                         </Typography>
                     </Toolbar>
                 </AppBar>
