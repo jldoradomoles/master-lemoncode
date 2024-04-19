@@ -1,6 +1,8 @@
 import { Pedido, LineaPedidoStatus, PedidoStatus } from "./api.model";
 
 export function getMockData(): Pedido {
+    console.log("entra en getMockData");
+
     return {
         id: "1",
         cliente: "Cliente 1",

@@ -1,12 +1,13 @@
 import React, { createContext, useState } from "react";
 import { PedidoEntity, LineaPedido, LineaPedidoStatus } from "./pedidos.vm";
+import { getMockData } from "@/api";
 
 export const PedidosContext = createContext<any>(null);
 
 export const PedidosProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const [pedido, setPedidos] = useState<PedidoEntity | null>(null);
+    const [pedido, setPedido] = useState<PedidoEntity | null>(null);
     const [lineasPedido, setLineaPedido] = useState<LineaPedido[]>([]);
 
     const updatePedidoStatus = (id: string, newStatus: string) => {
@@ -28,7 +29,9 @@ export const PedidosProvider: React.FC<{ children: React.ReactNode }> = ({
         // });
     };
 
-    const updateImporteTotal = (id: string, newImporteTotal: number) => {
+    const updateImporteTotal = (newImporteTotal: number, id?: string) => {
+        console.log("en updated");
+
         let pedidoUpdated = { ...pedido, status: newImporteTotal };
     };
 
@@ -70,6 +73,7 @@ export const PedidosProvider: React.FC<{ children: React.ReactNode }> = ({
             value={{
                 pedido,
                 lineasPedido,
+                setPedido,
                 updatePedidoStatus,
                 updateImporteTotal,
                 updateLineaPedidoImporte,

@@ -20,7 +20,7 @@ export const CartContainer: React.FC = () => {
     };
 
     React.useEffect(() => {
-        data.length > 0 && setMember(data);
+        // data.length > 0 && setMember(data);
     }, []);
 
     return (
