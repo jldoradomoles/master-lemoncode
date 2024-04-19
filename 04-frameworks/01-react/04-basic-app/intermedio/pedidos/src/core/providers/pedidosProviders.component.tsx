@@ -33,6 +33,7 @@ export const PedidosProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log("en updated");
 
         let pedidoUpdated = { ...pedido, status: newImporteTotal };
+        // setPedido(pedidoUpdated);S
     };
 
     const updateLineaPedidoImporte = (id: string, newImporte: number) => {
