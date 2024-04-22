@@ -13,8 +13,6 @@ export const HeaderContainer: React.FC<Props> = (props) => {
     const { pedido } = props;
     const [member, setMember] = React.useState<PedidoEntity>(null);
 
-    console.log(pedido);
-
     React.useEffect(() => {
         setMember(pedido);
     }, [pedido]);

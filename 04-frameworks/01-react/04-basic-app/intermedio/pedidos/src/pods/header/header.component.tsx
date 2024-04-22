@@ -28,6 +28,7 @@ export const HeaderComponent: React.FC<Props> = (props) => {
     const [member, setMember] = React.useState<PedidoEntity>();
 
     React.useEffect(() => {
+        console.log("en effect de header component");
         setMember(pedido);
     }, [pedido]);
 

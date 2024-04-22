@@ -4,14 +4,15 @@ import {
     PedidosContext,
     PedidosProvider,
 } from "./core/providers/pedidosProviders.component";
-import { getMockData, Pedido } from "./api";
+import { Provider } from "react-redux";
+import store from "../src/app/store";
 
 export const App = () => {
     return (
         <>
-            <PedidosProvider>
+            <Provider store={store}>
                 <AppRouter />
-            </PedidosProvider>
+            </Provider>
         </>
     );
 };

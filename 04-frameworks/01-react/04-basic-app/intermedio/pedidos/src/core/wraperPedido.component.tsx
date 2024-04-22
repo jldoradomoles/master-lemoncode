@@ -11,34 +11,32 @@ import {
 import { Pedido } from "../api/api.model";
 
 export const WraperPedidoComponent: React.FC = () => {
-    const { pedido, setPedido, updateImporteTotal } =
+    const { pedido, setPedido, updateImporteTotal, updateLineaPedidoImporte } =
         React.useContext(PedidosContext);
+    const [member, setMember] = React.useState<Pedido>(null);
 
     React.useEffect(() => {
+        // obtenemos los datos del pedido
         const data = getMockData();
-        console.log("data----->", data);
-
         let totalImporte = 0;
+        // Calculamos el importe total del pedido
         data.lineas.forEach((linea) => {
             totalImporte += linea.importe;
         });
-        console.log("Total Importe:", totalImporte);
-
+        // Seteamos el pedido desde el mock y el importe total del pedido
         data && setPedido(data);
-        updateImporteTotal(totalImporte);
+        updateImporteTotal(data, totalImporte);
+        // pedido && updatePrecioLinea();
     }, []);
 
-    console.log(pedido);
-    if (pedido !== undefined && pedido !== null) {
-        return (
-            <AppLayout>
-                <CenterLayout>
-                    <PedidosProvider>
-                        <HeaderContainer pedido={pedido} />
-                        <TablaContainer pedido={pedido} />
-                    </PedidosProvider>
-                </CenterLayout>
-            </AppLayout>
-        );
-    }
+    return (
+        <AppLayout>
+            <CenterLayout>
+                <PedidosProvider>
+                    <HeaderContainer pedido={pedido} />
+                    <TablaContainer pedido={pedido} />
+                </PedidosProvider>
+            </CenterLayout>
+        </AppLayout>
+    );
 };

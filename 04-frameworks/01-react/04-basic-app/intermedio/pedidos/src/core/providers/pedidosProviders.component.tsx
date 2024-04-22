@@ -29,26 +29,52 @@ export const PedidosProvider: React.FC<{ children: React.ReactNode }> = ({
         // });
     };
 
-    const updateImporteTotal = (newImporteTotal: number, id?: string) => {
-        console.log("en updated");
-
-        let pedidoUpdated = { ...pedido, status: newImporteTotal };
-        // setPedido(pedidoUpdated);S
+    const updateImporteTotal = (
+        pedido,
+        newImporteTotal: number,
+        id?: string
+    ) => {
+        let pedidoUpdated = { ...pedido, importeTotal: newImporteTotal };
+        setPedido(pedidoUpdated);
     };
 
-    const updateLineaPedidoImporte = (id: string, newImporte: number) => {
-        setLineaPedido((prevLineasPedido) => {
-            const updatedLineasPedido = prevLineasPedido.map((lineaPedido) => {
-                if (lineaPedido.id === id) {
-                    return {
-                        ...lineaPedido,
-                        importe: newImporte,
-                    };
-                }
-                return lineaPedido;
-            });
-            return updatedLineasPedido;
+    const updateLineaPedidoImporte = (
+        id: string,
+        newImporte: number,
+        pedido
+    ) => {
+        console.log("en updateLineaPedidoImporte", id, newImporte);
+        console.log(pedido);
+
+        let updatedLineasPedido;
+        // setLineaPedido((prevLineasPedido) => {
+        //     updatedLineasPedido = prevLineasPedido.map((lineaPedido) => {
+        //         if (lineaPedido.id === id) {
+        //             return {
+        //                 ...lineaPedido,
+        //                 importe: newImporte,
+        //             };
+        //         }
+        //         return lineaPedido;
+        //     });
+        //     return updatedLineasPedido;
+        // });
+
+        let lineas = pedido.lineas.map((lineaPedido) => {
+            if (lineaPedido.id === id) {
+                return {
+                    ...lineaPedido,
+                    importe: newImporte,
+                };
+            }
+            return lineaPedido;
         });
+
+        console.log("lineas", lineas);
+
+        let pedidoUpdated = { ...pedido, lineas };
+
+        setPedido(pedidoUpdated);
     };
 
     const updateLineaPedidoStatus = (

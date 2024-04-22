@@ -14,5 +14,15 @@ export const TablaContainer: React.FC<Props> = (props) => {
         setMember(pedido); // Wrap pedido inside an array
     }, [pedido]);
 
+    const handleImporteTotal = (
+        pedido: PedidoEntity,
+        newImporteTotal: number,
+        id?: string
+    ) => {
+        console.log("en updated");
+        let pedidoUpdated = { ...pedido, importeTotal: newImporteTotal };
+        setMember(pedidoUpdated);
+    };
+
     return <TablaComponent pedido={pedido} />;
 };

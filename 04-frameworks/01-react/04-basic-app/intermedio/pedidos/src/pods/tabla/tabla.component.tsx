@@ -1,68 +1,138 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { LineaPedido, PedidoEntity } from "@/core/providers/pedidos.vm";
-import { Description } from "@mui/icons-material";
+import { PedidoEntity } from "@/core/providers/pedidos.vm";
+import { PedidosContext } from "@/core/providers/pedidosProviders.component";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+} from "@mui/material";
 
 interface Props {
     pedido: PedidoEntity;
 }
 
-const columns: GridColDef[] = [
-    { field: "id", headerName: "id", width: 130 },
-    { field: "status", headerName: "Estado", width: 130 },
-    { field: "description", headerName: "Descripción", width: 130 },
-    {
-        field: "importe",
-        headerName: "Importe",
-        type: "number",
-        width: 90,
-    },
-    // {
-    //     field: "fullName",
-    //     headerName: "Full name",
-    //     description: "This column has a value getter and is not sortable.",
-    //     sortable: false,
-    //     width: 160,
-    //     valueGetter: (value, row) =>
-    //         `${row.firstName || ""} ${row.lastName || ""}`,
-    // },
-];
-
-const rows = [];
-
 export const TablaComponent: React.FC<Props> = (props) => {
     const { pedido } = props;
     const [member, setMember] = React.useState<PedidoEntity>();
+    const { setPedido } = React.useContext(PedidosContext);
+    const [precio, setPrecio] = useState(0);
+    const [lineaId, setLineaId] = useState("");
 
     React.useEffect(() => {
         setMember(pedido);
     }, [pedido]);
 
-    if (member != undefined) {
-        console.log(member.lineas);
-        member.lineas.map((linea) => {
-            rows.push({
-                id: linea.id,
-                status: linea.status,
-                description: linea.description,
-                importe: linea.importe,
-            });
+    const updateImportePedido = (lineaid, newImporte: number) => {
+        let lineas = member.lineas.map((lineaPedido) => {
+            if (lineaPedido.id === lineaid) {
+                return {
+                    ...lineaPedido,
+                    importe: newImporte,
+                };
+            }
+            return lineaPedido;
         });
+        setMember({ ...member, lineas });
+        setPedido({ ...member, lineas });
+    };
+
+    if (member != undefined) {
+        const handelImporte = (id, importe) => {
+            console.log("en handelImporte");
+            setPrecio(importe);
+            setLineaId(id);
+        };
 
         return (
-            <div style={{ height: 400, width: "100%" }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
+            <>
+                <TextField
+                    style={{ width: "100%" }}
+                    type="number"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value={precio}
+                    size="small"
+                    color="primary"
+                    onChange={(e) => {
+                        setPrecio(Number(e.target.value));
                     }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            updateImportePedido(lineaId, precio);
+                        }
+                    }}
                 />
-            </div>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>id</TableCell>
+                            <TableCell>Estado</TableCell>
+                            <TableCell>Descripcion</TableCell>
+                            <TableCell>Importe</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {member.lineas.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell align="left">
+                                    <p
+                                        style={{
+                                            fontSize: "13px",
+                                            margin: "0px",
+                                        }}
+                                    >
+                                        {item.id}
+                                    </p>
+                                </TableCell>
+                                <TableCell align="left">
+                                    <p
+                                        style={{
+                                            fontSize: "13px",
+                                            margin: "0px",
+                                        }}
+                                    >
+                                        {item.status}
+                                    </p>
+                                </TableCell>
+                                <TableCell align="left">
+                                    <p
+                                        style={{
+                                            fontSize: "13px",
+                                            margin: "0px",
+                                        }}
+                                    >
+                                        {item.description}
+                                    </p>
+                                </TableCell>
+                                <TableCell align="left">
+                                    <p
+                                        style={{
+                                            fontSize: "13px",
+                                            margin: "0px",
+                                        }}
+                                    >
+                                        {item.importe}
+                                    </p>
+                                </TableCell>
+                                <TableCell>
+                                    <button
+                                        onClick={() =>
+                                            handelImporte(item.id, item.importe)
+                                        }
+                                    >
+                                        Editar Precio
+                                    </button>{" "}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </>
         );
     }
 };
