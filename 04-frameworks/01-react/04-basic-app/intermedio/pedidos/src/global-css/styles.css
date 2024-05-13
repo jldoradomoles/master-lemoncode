@@ -96,3 +96,7 @@ body {
 .css-1essi2g-MuiDataGrid-columnHeaderRow {
     background: rgb(245 245 245 / 57%);
 }
+
+table {
+    background: white;
+}

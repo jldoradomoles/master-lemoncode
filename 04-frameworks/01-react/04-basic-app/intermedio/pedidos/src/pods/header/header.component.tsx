@@ -6,17 +6,33 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-        •
-    </Box>
-);
+import { useDispatch, useSelector } from "react-redux";
 
 export const HeaderComponent: React.FC = () => {
+    const pedidoState: any = useSelector((state: any) => state);
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        let totalPrecio = 0;
+        pedidoState.lineas.forEach((lineaPedido) => {
+            totalPrecio += lineaPedido.importe;
+        });
+        dispatch({ type: "UPDATE_TOTAL_PRICE", payload: totalPrecio });
+    }, []);
+
+    const enviar = () => {
+        const todasLasLineasValidas = pedidoState.lineas.every(
+            (lineaPedido) => lineaPedido.status === "Valido"
+        );
+        if (todasLasLineasValidas) {
+            dispatch({ type: "UPDATE_STATUS", payload: "Enviado" });
+        } else {
+            alert(
+                "No se puede enviar el pedido, hay lineas pendientes de validar"
+            );
+        }
+    };
+
     return (
         <Card sx={{ mb: 5, minWidth: 275 }}>
             <CardContent>
@@ -29,9 +45,11 @@ export const HeaderComponent: React.FC = () => {
                             sx={{ mb: 1.5, mr: 5 }}
                             color="text.secondary"
                         >
-                            Número pedido
+                            Pedido
                             <br />
-                            <span className="color-black">53214354</span>
+                            <span className="color-black">
+                                {pedidoState.id}
+                            </span>
                         </Typography>
                     </div>
                     <div className="">
@@ -41,7 +59,9 @@ export const HeaderComponent: React.FC = () => {
                         >
                             Proveedor
                             <br />
-                            <span className="color-black">Cano</span>
+                            <span className="color-black">
+                                {pedidoState.cliente}
+                            </span>
                         </Typography>
                     </div>
                     <div className="">
@@ -52,7 +72,9 @@ export const HeaderComponent: React.FC = () => {
                             Fecha
                             <CalendarMonthIcon sx={{ ml: 1 }} />
                             <br />
-                            <span className="color-black">21/02/2024</span>
+                            <span className="color-black">
+                                {pedidoState.fecha}
+                            </span>
                         </Typography>
                     </div>
                 </div>
@@ -60,15 +82,21 @@ export const HeaderComponent: React.FC = () => {
                     <Typography sx={{ mb: 1.5, mr: 5 }} color="text.secondary">
                         Importe Total
                         <br />
-                        <span className="color-black">12.000 €</span>
+                        <span className="color-black">
+                            {pedidoState.importeTotal}
+                        </span>
                     </Typography>
                     <Typography sx={{ mb: 1.5, mr: 7 }} color="text.secondary">
                         Estado
                         <br />
-                        <span className="color-black">Pendiente</span>
+                        <span className="color-black">
+                            {pedidoState.status}
+                        </span>
                     </Typography>
                     <CardActions>
-                        <Button variant="contained">Enviar</Button>
+                        <Button onClick={enviar} variant="contained">
+                            Enviar
+                        </Button>
                     </CardActions>
                 </div>
             </CardContent>
