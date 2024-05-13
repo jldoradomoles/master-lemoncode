@@ -1,0 +1,13 @@
+<mat-toolbar class="container">
+    <div class="container-logo">
+        <img class="logo" src="../assets/logo/logo.png" alt="">
+        <span>Personajes Anime y galeria</span>
+    </div>
+    <div class="menu">
+        @for (item of menu; track $index) {
+            <a class="menu-item" href="{{item.route}}">{{ item.name }}</a>
+        }
+    </div>
+
+   
+</mat-toolbar>
