@@ -15,9 +15,8 @@ interface menuItem {
 })
 export class HeaderComponent {
 
-
   menu: menuItem[] = [
-    { name: 'Home', route: '/home' },
+    { name: 'Home', route: '' },
     { name: 'Login', route: '/login' },
     { name: 'Acerca de', route: '/sabermas' } 
   ];

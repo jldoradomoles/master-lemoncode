@@ -1,14 +1,32 @@
-
 <form class="login-form" [formGroup]="loginForm">
-    <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username" placeholder="Enter your username">
+    <div>
+        <p>Usuatio: masterlemoncode</p>
+        <p>Password: 12345678</p>
+    </div>
+    <mat-form-field class="mr-1" appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" placeholder="">
+        @if (loginForm!.get('username')!.errors?.['required']) {
+            <mat-error>
+                Usuario es requerido
+            </mat-error>
+        }
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
+    <mat-form-field class="mr-1" appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" placeholder="Enter your password">
+        <input matInput formControlName="password" type="password" placeholder="">
+                <mat-error>
+                    @if (loginForm.get('password')!.errors?.['required']) {
+                        <ng-container>
+                            Password es requerido
+                        </ng-container>
+                    }
+                    @if (loginForm.get('password')!.errors?.['minlength']) {
+                        <ng-container>
+                            Password debe tener al menos {{ loginForm.get('password')!.errors?.['minlength'].requiredLength }} caracteres
+                        </ng-container>
+                    }
+                </mat-error>
     </mat-form-field>
-
-    <button mat-raised-button color="primary" (click)="login()">Login</button>
+    <button mat-flat-button color="primary" (click)="submit()">Login</button>
 </form>
