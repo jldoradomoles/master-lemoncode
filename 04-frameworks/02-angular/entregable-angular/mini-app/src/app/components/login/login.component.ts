@@ -19,11 +19,13 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   auth = inject(AuthService);
+  router = inject(Router);
+  formBuilder = inject(FormBuilder);
 
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -35,7 +37,7 @@ export class LoginComponent {
     pipe(
       tap(() => console.log('Logging...')),
       delay(2000)
-    ).subscribe((result) => { if(result) { this.router.navigate(['']);} })
+    ).subscribe((result) => { if(result) { this.router.navigate(['/dashboard']);} })
   }
 
 }

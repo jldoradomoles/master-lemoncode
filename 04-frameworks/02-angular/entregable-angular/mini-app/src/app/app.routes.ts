@@ -5,7 +5,8 @@ import { HomeComponent } from './components/home/home.component';
 import { SaberMasComponent } from './components/saber-mas/saber-mas.component';
 import { CrudComponent } from './components/crud/crud.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -13,5 +14,7 @@ export const routes: Routes = [
     { path: 'galeria', component:  GaleriaComponent},
     { path: 'sabermas', component:  SaberMasComponent},
     { path: 'users', component:  CrudComponent},
-    { path: 'profile', component:  ProfileComponent},
+    { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'dashboard', component:  DashboardComponent, canActivate: [AuthGuard]},
+    { path: 'crud', component:  CrudComponent, canActivate: [AuthGuard]},
 ];

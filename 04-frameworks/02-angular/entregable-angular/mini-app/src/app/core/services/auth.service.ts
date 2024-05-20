@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -6,12 +7,13 @@ import { Observable, of } from 'rxjs';
 })
 export class AuthService {
 
+  router = inject(Router);
 
-  constructor() {}
 
   login(username: string, password: string): Observable<boolean> {
     // Implementar la lógica de login
     if (username === 'masterlemoncode' && password === '12345678') {
+      localStorage.setItem('loggedInUser', username);
       return of(true);
     } else {
       alert('Usuario o contraseña incorrectos');
@@ -22,18 +24,21 @@ export class AuthService {
 
   // Funcion para hacer logout 
   logout(): void {
-
+    localStorage.setItem('loggedInUser', '');
+    this.router.navigate(['']);
   }
 
   // Funcion para saber si el usuario esta logeado
   isLogged(): boolean {
-    return false;
+    let name =  localStorage.getItem('loggedInUser');
+    return name ? true : false;
   }
 
 
   // Funcion para obtener el nombre de usuario logeado
   getUserName(): string {
-    return '';
+    let name =  localStorage.getItem('loggedInUser');
+    return name ? name : '';
   }
 
 
