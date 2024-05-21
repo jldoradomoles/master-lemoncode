@@ -17,8 +17,9 @@ a {
 .container-logo {
     display: flex;
     align-items: center;
-
+    font-size: 17px;
 }
+
 .logo{
     width: 100px;
     margin-right: 1rem;
@@ -27,8 +28,17 @@ a {
 .menu {
     display: flex;
     align-items: center;
+    font-size: 15px;
 }
 
 .menu-item {
     margin-right: 1rem;
+}
+
+.logout-icon {
+    height: 24px;
+    margin-right: .3rem;
+    margin-left: .8rem;
+    cursor: pointer;
+    
 }

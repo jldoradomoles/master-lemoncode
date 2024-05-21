@@ -7,10 +7,15 @@
         @for (item of menu; track $index) {
             <a class="menu-item" href="{{item.route}}">{{ item.name }}</a>
         }
+        
         @if(logged){
-            <div (click)="logout()" class="">
-                <mat-icon  aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+            <div (click)="logout()" class="logout-icon">
+                <mat-icon  aria-hidden="false"  fontIcon="logout"></mat-icon>
             </div>
         }
+        @if (username) {
+            <span>{{ username }}</span>
+        }
+    
     </div>
 </mat-toolbar>
