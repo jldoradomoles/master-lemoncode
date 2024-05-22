@@ -1,5 +1,22 @@
+<div>
+    <button mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-flat-button color="primary">
+        Aumentar
+    </button>
+    <button mat-flat-button color="primary">
+        Disminuir
+    </button>
+    <button mat-flat-button color="accent">Play</button>
+    <button mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+</div>
 <mat-grid-list cols="3" rowHeight="200px">
-    <mat-grid-tile *ngFor="let image of images">
-        <img src="{{ image.url }}" alt="{{ image.alt }}">
-    </mat-grid-tile>
+    @for (item of imagenes; track $index) {
+        <div>
+            <img class="imagen" src="{{ item.src }}" alt="{{ item.title }}">
+        </div>
+    }
 </mat-grid-list>
