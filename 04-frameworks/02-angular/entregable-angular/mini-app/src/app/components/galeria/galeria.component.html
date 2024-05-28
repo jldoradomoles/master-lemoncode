@@ -1,22 +1,23 @@
-<div>
-    <button mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    <button mat-flat-button color="primary">
-        Aumentar
-    </button>
-    <button mat-flat-button color="primary">
-        Disminuir
-    </button>
-    <button mat-flat-button color="accent">Play</button>
-    <button mat-icon-button>
+<section class="container-btns">
+    <div class="container-btns example-button-row">
+        <button mat-icon-button (click)="previousImages()" [disabled]="isFirstImage">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+      <button mat-raised-button color="primary">Aumentar</button>
+      <button mat-raised-button color="primary">Disminuir</button>
+      <button mat-raised-button color="accent">Play</button>
+      <button mat-raised-button color="warn">Stop</button>
+    <button mat-icon-button (click)="nextImages()" [disabled]="isLastImage">
         <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-</div>
+        </button>
+    </div>
+</section>
 <mat-grid-list cols="3" rowHeight="200px">
+    <div class="container-img">
     @for (item of imagenes; track $index) {
         <div>
             <img class="imagen" src="{{ item.src }}" alt="{{ item.title }}">
         </div>
     }
+    </div>
 </mat-grid-list>
