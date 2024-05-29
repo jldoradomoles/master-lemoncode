@@ -16,7 +16,7 @@
     <div class="container-img">
     @for (item of imagenes; track $index) {
         <div>
-            <img class="imagen" src="{{ item.src }}" alt="{{ item.title }}">
+            <img (click)="imagenSelected(item)"  class="imagen" src="{{ item.src }}" alt="{{ item.title }}">
         </div>
     }
     </div>

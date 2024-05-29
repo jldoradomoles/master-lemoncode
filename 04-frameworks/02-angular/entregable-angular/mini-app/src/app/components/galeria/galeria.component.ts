@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class GaleriaComponent implements OnInit {
   imagenes: Imagen[] = [];
-
   imagenInit: number = 0;
   imagenEnd: number = 3;
   isLastImage: boolean = false;
@@ -30,7 +29,6 @@ export class GaleriaComponent implements OnInit {
   nextImages(): void {
     this.imagenInit += 1;
     this.imagenEnd += 1;
-    console.log(this.imagenEnd, this.imagenInit);
     if (this.imagenEnd <= 8) {
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isFirstImage = false;
@@ -41,22 +39,29 @@ export class GaleriaComponent implements OnInit {
   }
 
   previousImages(): void {
+    console.log(this.imagenInit, this.imagenEnd);
+
     if (this.imagenInit >= 1) {
       this.imagenInit -= 1;
     }
     this.imagenEnd -= 1;
-
-    console.log(this.imagenEnd, this.imagenInit);
-
     if (this.imagenInit >= 0) {
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
+      this.isLastImage = false;
     }
     if (this.imagenInit === 0) {
       this.isFirstImage = true;
     }
+  }
 
-    // this.imagenInit >= 0
-    //   ? (this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd))
-    //   : (this.isFirstImage = true);
+  imagenSelected(imagen: Imagen): void {
+    console.log(imagen.id);
+    console.log(this.imagenEnd, this.imagenInit);
+
+    imagen.id === this.imagenEnd
+      ? this.nextImages()
+      : imagen.id - 1 === this.imagenInit
+      ? this.previousImages()
+      : null;
   }
 }
