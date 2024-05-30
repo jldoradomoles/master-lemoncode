@@ -28,34 +28,39 @@ export class GaleriaComponent implements OnInit {
 
   nextImages(): void {
     this.imagenInit += 1;
-    this.imagenEnd += 1;
     if (this.imagenEnd <= 8) {
+      this.imagenEnd += 1;
+    }
+    console.log(this.imagenInit, this.imagenEnd);
+    if (this.imagenEnd <= 9) {
+      console.log('entro');
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isFirstImage = false;
     }
-    if (this.imagenEnd == 8) {
+    if (this.imagenEnd == 9) {
+      console.log('entro 2');
+
       this.isLastImage = true;
     }
   }
 
   previousImages(): void {
-    console.log(this.imagenInit, this.imagenEnd);
-
     if (this.imagenInit >= 1) {
       this.imagenInit -= 1;
     }
     this.imagenEnd -= 1;
-    if (this.imagenInit >= 0) {
+    console.log(this.imagenInit, this.imagenEnd);
+
+    if (this.imagenInit >= 1) {
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isLastImage = false;
     }
-    if (this.imagenInit === 0) {
+    if (this.imagenInit === 1) {
       this.isFirstImage = true;
     }
   }
 
   imagenSelected(imagen: Imagen): void {
-    console.log(imagen.id);
     console.log(this.imagenEnd, this.imagenInit);
 
     imagen.id === this.imagenEnd
