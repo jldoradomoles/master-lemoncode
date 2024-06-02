@@ -54,4 +54,11 @@ section {
 
 ::ng-deep mat-grid-list > div > div > div:nth-child(2) > img {
     width: 500px !important;
+    border: 2px solid black;
 }
+
+.large {
+  width: 800px;
+}
+
+

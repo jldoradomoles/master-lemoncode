@@ -1,8 +1,19 @@
-import { CanActivateFn } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { GuardResult, MaybeAsync, Route, UrlSegment } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard {
+  constructor(private authService: AuthService) {}
 
-export const AuthGuard: CanActivateFn = (route, state) => {
-  const authService = new AuthService(); // Instantiate the AuthService
-  return authService.isLogged(); // Check if the user is logged in
-};
+  canActivate(): Observable<boolean> {
+    return this.authService.isLogged().pipe(
+      map((logged) => {
+        return logged ? true : false;
+      })
+    );
+  }
+}

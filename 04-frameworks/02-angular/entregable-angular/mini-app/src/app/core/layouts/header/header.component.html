@@ -4,18 +4,19 @@
         <span>Personajes Anime y galeria</span>
     </div>
     <div class="menu">
-        @for (item of menu; track $index) {
-            <a class="menu-item" href="{{item.route}}">{{ item.name }}</a>
+        @for (item of menuItems; track $index) {
+            <a *ngIf="!item.requiresAuth || logged" class="menu-item" [routerLink]="item.link" >{{ item.label }}</a>
         }
         
         @if(logged){
-            <div (click)="logout()" class="logout-icon">
-                <mat-icon  aria-hidden="false"  fontIcon="logout"></mat-icon>
+            <div  class="logout-icon">
+                <span class="username">{{ username }}</span>
+                <mat-icon (click)="logout()"   aria-hidden="false"  fontIcon="logout"></mat-icon>
             </div>
+        } @else {
+            <a class="menu-item" href="/login" >Login</a>
         }
-        @if (username) {
-            <span>{{ username }}</span>
-        }
+        
     
     </div>
 </mat-toolbar>

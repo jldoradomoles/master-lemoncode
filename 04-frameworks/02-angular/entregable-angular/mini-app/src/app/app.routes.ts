@@ -9,12 +9,37 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'galeria', component:  GaleriaComponent},
-    { path: 'sabermas', component:  SaberMasComponent},
-    { path: 'users', component:  CrudComponent},
-    { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard]},
-    { path: 'dashboard', component:  DashboardComponent, canActivate: [AuthGuard]},
-    { path: 'crud', component:  CrudComponent, canActivate: [AuthGuard]},
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'sabermas', component: SaberMasComponent },
+  {
+    path: 'galeria',
+    loadComponent: () =>
+      import('./components/galeria/galeria.component').then(
+        (m) => m.GaleriaComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./components/profile/profile.component').then(
+        (m) => m.ProfileComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./components/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'crud',
+    loadComponent: () =>
+      import('./components/crud/crud.component').then((m) => m.CrudComponent),
+    canActivate: [AuthGuard],
+  },
 ];

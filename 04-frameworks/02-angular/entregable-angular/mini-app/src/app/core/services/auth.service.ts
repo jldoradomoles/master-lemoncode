@@ -3,16 +3,15 @@ import { Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   router = inject(Router);
 
   loginStatusChanged = new Subject<boolean>();
 
-
   login(username: string, password: string): Observable<boolean> {
+    console.log('login');
     // Implementar la lógica de login
     if (username === 'jose' && password === '12345678') {
       localStorage.setItem('loggedInUser', username);
@@ -22,11 +21,11 @@ export class AuthService {
       alert('Usuario o contraseña incorrectos');
       return of(false);
     }
-  
   }
 
-  // Funcion para hacer logout 
+  // Funcion para hacer logout
   logout(): void {
+    console.log('logout');
     localStorage.setItem('loggedInUser', '');
     this.loginStatusChanged.next(false);
     this.router.navigate(['']);
@@ -34,16 +33,13 @@ export class AuthService {
 
   // Funcion para saber si el usuario esta logeado
   isLogged(): Observable<boolean> {
-    let name =  localStorage.getItem('loggedInUser');
+    let name = localStorage.getItem('loggedInUser');
     return of(name ? true : false);
   }
 
-
   // Funcion para obtener el nombre de usuario logeado
   getUserName(): string {
-    let name =  localStorage.getItem('loggedInUser');
+    let name = localStorage.getItem('loggedInUser');
     return name ? name : '';
   }
-
-
 }

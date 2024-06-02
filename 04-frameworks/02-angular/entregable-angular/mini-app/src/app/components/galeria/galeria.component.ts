@@ -17,6 +17,7 @@ export class GaleriaComponent implements OnInit {
   imagenEnd: number = 3;
   isLastImage: boolean = false;
   isFirstImage: boolean = false;
+  isImageLarge = false;
 
   ngOnInit(): void {
     this.getThreeFirstImages();
@@ -33,13 +34,10 @@ export class GaleriaComponent implements OnInit {
     }
     console.log(this.imagenInit, this.imagenEnd);
     if (this.imagenEnd <= 9) {
-      console.log('entro');
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isFirstImage = false;
     }
     if (this.imagenEnd == 9) {
-      console.log('entro 2');
-
       this.isLastImage = true;
     }
   }
@@ -51,22 +49,27 @@ export class GaleriaComponent implements OnInit {
     this.imagenEnd -= 1;
     console.log(this.imagenInit, this.imagenEnd);
 
-    if (this.imagenInit >= 1) {
+    if (this.imagenInit >= 0) {
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isLastImage = false;
     }
-    if (this.imagenInit === 1) {
+    if (this.imagenInit === 0) {
       this.isFirstImage = true;
     }
   }
 
   imagenSelected(imagen: Imagen): void {
-    console.log(this.imagenEnd, this.imagenInit);
+    console.log(this.imagenInit, this.imagenEnd);
+    console.log(imagen.id);
 
-    imagen.id === this.imagenEnd
+    imagen.id === this.imagenEnd - 1
       ? this.nextImages()
-      : imagen.id - 1 === this.imagenInit
+      : imagen.id === this.imagenInit
       ? this.previousImages()
       : null;
+  }
+
+  increaseImageSize(): void {
+    this.isImageLarge = true;
   }
 }
