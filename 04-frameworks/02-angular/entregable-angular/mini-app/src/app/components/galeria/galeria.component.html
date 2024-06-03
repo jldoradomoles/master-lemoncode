@@ -3,10 +3,10 @@
         <button mat-icon-button (click)="previousImages()" [disabled]="isFirstImage">
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-      <button (click)="increaseImageSize()" mat-raised-button color="primary">Aumentar</button>
-      <button mat-raised-button color="primary">Disminuir</button>
-      <button mat-raised-button color="accent">Play</button>
-      <button mat-raised-button color="warn">Stop</button>
+      <button [disabled]="imagenIncrese" (click)="increaseImageSize()" mat-raised-button color="primary">Aumentar</button>
+      <button [disabled]="imagenDecrese" (click)="decreseImageSize()" mat-raised-button color="primary">Disminuir</button>
+      <button (click)="play()" mat-raised-button color="accent">Play</button>
+      <button (click)="play()" mat-raised-button color="warn">Stop</button>
     <button mat-icon-button (click)="nextImages()" [disabled]="isLastImage">
         <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
@@ -17,7 +17,12 @@
     @for (item of imagenes; track $index) {
         <div>
             <img [class.large]="isImageLarge" id="{{item.id}}" (click)="imagenSelected(item)"  class="imagen" src="{{ item.src }}" alt="{{ item.title }}">
+            <h2 class="image-title">{{ item.title }}</h2>
         </div>
     }
+    </div>
+    <div class="container-img-selected">
+        <h4>{{ imageName }}</h4>
+        <img src="/assets/imagenes/empty.jpg" id="imagen-selected" class="imagen-selected"  alt="">
     </div>
 </mat-grid-list>
