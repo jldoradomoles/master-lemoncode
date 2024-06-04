@@ -4,12 +4,18 @@ import Imagenes, { Imagen } from './imagenes';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { interval, Subject, Subscription } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { RotateImageDirective } from '../../directives/rotate-image-directive.directive';
 
 @Component({
   selector: 'app-galeria',
   standalone: true,
-  imports: [MatGridListModule, MatButtonModule, MatIconModule],
+  imports: [
+    MatGridListModule,
+    MatButtonModule,
+    MatIconModule,
+    RotateImageDirective,
+  ],
   templateUrl: './galeria.component.html',
   styleUrl: './galeria.component.scss',
 })
@@ -24,6 +30,10 @@ export class GaleriaComponent implements OnInit {
   imagenDecrese: boolean = true;
   imagenIncrese: boolean = true;
   subscription$: Subject<void> = new Subject();
+  subscription: Subscription = new Subscription(); // Initialize the 'subscription' property
+  isPlaying: boolean = false;
+  isStoped: boolean = true;
+  steps: number = 0;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     this.elementRef = elementRef;
@@ -35,6 +45,8 @@ export class GaleriaComponent implements OnInit {
   }
 
   getThreeFirstImages(): void {
+    this.imagenInit = 0;
+    this.imagenEnd = 3;
     this.imagenes = Imagenes.slice(0, 3);
   }
 
@@ -43,8 +55,6 @@ export class GaleriaComponent implements OnInit {
     if (this.imagenEnd <= 8) {
       this.imagenEnd += 1;
     }
-    console.log(this.imagenInit, this.imagenEnd);
-
     if (this.imagenEnd <= 9) {
       this.imagenes = Imagenes.slice(this.imagenInit, this.imagenEnd);
       this.isFirstImage = false;
@@ -71,13 +81,27 @@ export class GaleriaComponent implements OnInit {
   imagenSelected(imagen: Imagen): void {
     this.imagenIncrese = false;
     this.imagenDecrese = true;
-    const element2 =
-      this.elementRef.nativeElement.querySelector('#imagen-selected');
-    this.renderer.setStyle(element2, 'width', '600px');
     this.imageName = imagen.title;
-    const element =
+
+    const imageSelected =
       this.elementRef.nativeElement.querySelector('#imagen-selected');
-    this.renderer.setAttribute(element, 'src', imagen.src);
+    this.renderer.setStyle(imageSelected, 'width', '600px');
+    this.renderer.setAttribute(imageSelected, 'src', imagen.src);
+
+    const imageSelectedShow = this.elementRef.nativeElement.querySelector(
+      `#${imagen.title}`
+    );
+
+    this.renderer.setStyle(imageSelectedShow, 'border', '2px solid #000');
+
+    this.imagenes.forEach((img) => {
+      if (img.title !== imagen.title) {
+        const imageSelectedHide = this.elementRef.nativeElement.querySelector(
+          `#${img.title}`
+        );
+        this.renderer.setStyle(imageSelectedHide, 'border', 'none');
+      }
+    });
   }
 
   increaseImageSize(): void {
@@ -97,18 +121,30 @@ export class GaleriaComponent implements OnInit {
   }
 
   play(): void {
-    this.subscription$ = new Subject<void>();
-    interval(2000)
-      .pipe(take(6), takeUntil(this.subscription$))
+    this.isPlaying = !this.isPlaying;
+    this.isStoped = !this.isStoped;
+    let step = this.steps === 0 ? 6 : 6 - this.steps;
+    this.subscription = interval(2000)
+      .pipe(take(step))
       .subscribe(() => {
-        console.log(this.imagenEnd);
-        console.log('next');
+        this.steps += 1;
         this.nextImages();
+        if (this.steps === 6) {
+          this.isStoped = !this.isStoped;
+          setTimeout(() => {
+            this.isStoped = !this.isStoped;
+            this.getThreeFirstImages();
+            this.steps = 0;
+            this.stop();
+            this.play();
+          }, 2000);
+        }
       });
   }
 
   stop(): void {
-    this.subscription$.next();
-    this.subscription$.complete();
+    this.isPlaying = !this.isPlaying;
+    this.isStoped = !this.isStoped;
+    this.steps === 6 ? null : this.subscription.unsubscribe();
   }
 }

@@ -34,12 +34,10 @@ export class HeaderComponent implements OnInit {
   username!: string;
 
   getLoggedUserName(): void {
-    console.log('getLoggedUserName');
     this.username = this.authServices.getUserName();
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
     this.getLoggedUserName();
     this.authServices.loginStatusChanged
       .pipe(delay(2000))
