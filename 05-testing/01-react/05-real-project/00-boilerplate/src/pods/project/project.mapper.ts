@@ -13,15 +13,7 @@ export const mapEmployeeSummaryFromApiToVm = (
   };
 };
 
-export function createEmptyEmployeeSummary(): viewModel.EmployeeSummary {
-  return {
-    id: '',
-    employeeName: '',
-    isAssigned: true,
-  };
-}
-
-const mapEmployeeSummaryListFromApiToVm = (
+export const mapEmployeeSummaryListFromApiToVm = (
   employeeSummary: apiModel.EmployeeSummary[]
 ): viewModel.EmployeeSummary[] =>
   mapToCollection(employeeSummary, (es) => mapEmployeeSummaryFromApiToVm(es));
