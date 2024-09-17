@@ -1,5 +1,4 @@
 name: CI workflow
-
 on: push
 
 jobs:
