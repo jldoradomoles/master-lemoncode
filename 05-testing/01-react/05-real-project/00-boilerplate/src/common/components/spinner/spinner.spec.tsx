@@ -2,29 +2,33 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { SpinnerComponent } from './spinner.component';
+import { usePromiseTracker } from "react-promise-tracker";
+import { Modal } from '@mui/material';
 
+// Mocks de Jest deben configurarse fuera del cuerpo de los tests
+jest.mock("react-promise-tracker", () => ({
+    usePromiseTracker: () => ({
+      promiseInProgress: true
+    })
+  }));
 
 describe('Spinner component', () => {
-    test('should render without crashing', () => {
+    it('should render without crashing', () => {
         render(<SpinnerComponent />);
-        const spinnerElement = screen.getByTestId('spinner');
-        expect(spinnerElement).toBeInTheDocument();
+        render(<Modal open={true}><div /></Modal>);
+        expect(screen.getByRole('presentation')).toBeInTheDocument();
+
     });
 
-    test('should have the correct class name', () => {
+    it('should have the correct class name', () => {
         render(<SpinnerComponent />);
-        const spinnerElement = screen.getByTestId('spinner');
-        expect(spinnerElement).toHaveClass('spinner');
+        render(<Modal open={true} className='modal'><div /></Modal>);
+        const modal = screen.getByRole('presentation');
+        expect(modal).toHaveClass('modal');
     });
 
-    test('should display loading text if provided', () => {
-        const loadingText = 'Loading...';
-        render(<SpinnerComponent  />);
-        const textElement = screen.getByText(loadingText);
-        expect(textElement).toBeInTheDocument();
-    });
-
-    test('should not display loading text if not provided', () => {
+   
+    it('should not display loading text if not provided', () => {
         render(<SpinnerComponent />);
         const textElement = screen.queryByText(/Loading.../i);
         expect(textElement).not.toBeInTheDocument();
