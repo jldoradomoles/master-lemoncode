@@ -1,6 +1,5 @@
 name: CI workflow
 on: push
-
 jobs:
   ci:
     runs-on: ubuntu-latest
